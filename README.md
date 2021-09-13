@@ -13,9 +13,21 @@ Requirements :
 ### Testing command
 
 ```shell
-# Build testing container
+# Build testing container :
 make build
 
-# Delete testing container
+# Test plugins installation :
+make vim
+:source %
+:PlugInstall
+
+# Test plugins in the container test env :
+make shell
+vim
+:source %
+:PlugInstall
+# Happy testing.
+
+# Delete testing container :
 make clean
 ```
