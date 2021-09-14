@@ -1,3 +1,9 @@
+# Version 0.2
+- Add comment in vimrc
+- Add itchyny/vim-gitbranch plugin : https://github.com/itchyny/vim-gitbranch
+- Add itchyny/lightline.vim plugin : https://github.com/itchyny/lightline.vim
+and add basic configuration
+
 # Version 0.1
 - Setup docker dev env based on fedora 34
 - Configure installation script : install.sh with vim and dependancies
