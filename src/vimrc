@@ -16,7 +16,17 @@ set shiftwidth=4                            " Number of auto-indent spaces
 set smartindent                             " Enable smart-indent
 set smarttab                                " Enable smart-tabs
 set softtabstop=4                           " Number of spaces per Tab
-set backspace=indent,eol,start	            " Backspace behaviour
+set backspace=indent,eol,start              " Backspace behaviour
+
+inoremap " ""<left>                         " Autoclosing "
+inoremap ' ''<left>                         " Autoclosing '
+inoremap ( ()<left>                         " Autoclosing (
+inoremap [ []<left>                         " Autoclosing [
+inoremap { {}<left>                         " Autoclosing {
+inoremap {<CR> {<CR>}<ESC>O
+inoremap {;<CR> {<CR>};<ESC>O
+
+autocmd BufWritePre * :%s/\s\+$//e         " Remove trailing spaces on file write (:w)
 
 call plug#begin('~/.vim/plugged')           " Vim plug start dependancies plugin declaration
 Plug 'joshdick/onedark.vim'
@@ -33,6 +43,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
+" Lightline configuration
 set laststatus=2
 let g:lightline = {
       \ 'colorscheme': 'onedark',

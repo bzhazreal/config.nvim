@@ -3,6 +3,8 @@
 - Add itchyny/vim-gitbranch plugin : https://github.com/itchyny/vim-gitbranch
 - Add itchyny/lightline.vim plugin : https://github.com/itchyny/lightline.vim
 and add basic configuration
+- Add native autoclosing support
+- Auto remove space at end of line
 
 # Version 0.1
 - Setup docker dev env based on fedora 34
