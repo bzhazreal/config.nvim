@@ -3,6 +3,9 @@
 - Add itchyny/vim-gitbranch plugin : https://github.com/itchyny/vim-gitbranch
 - Add itchyny/lightline.vim plugin : https://github.com/itchyny/lightline.vim
 and add basic configuration
+- Add tpope/vim-fugitive plugin : https://github.com/tpope/vim-fugitive
+- Add preservim/nerdtree plugin : https://github.com/preservim/nerdtree
+- Add airblade/vim-gitgutter plugin : https://github.com/airblade/vim-gitgutter
 - Add native autoclosing support
 - Auto remove space at end of line
 

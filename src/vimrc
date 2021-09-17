@@ -1,3 +1,6 @@
+" -----------------------------------------------------------------------------
+" General configuration
+" -----------------------------------------------------------------------------
 set number                                  " Display line number
 set linebreak                               " Break lines at word
 set showbreak=+++                           " Wrap-broken line prefix
@@ -18,6 +21,9 @@ set smarttab                                " Enable smart-tabs
 set softtabstop=4                           " Number of spaces per Tab
 set backspace=indent,eol,start              " Backspace behaviour
 
+" -----------------------------------------------------------------------------
+" Autoclosing characters
+" -----------------------------------------------------------------------------
 inoremap " ""<left>
 inoremap ' ''<left>
 inoremap ( ()<left>
@@ -26,16 +32,27 @@ inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
+" -----------------------------------------------------------------------------
+" Autocommand on writing buffer
+" -----------------------------------------------------------------------------
 autocmd BufWritePre * :%s/\s\+$//e          " Remove trailing spaces on file write (:w)
 
+" -----------------------------------------------------------------------------
+" Vim Plug plugin list
+" -----------------------------------------------------------------------------
 call plug#begin('~/.vim/plugged')           " Vim plug start dependancies plugin declaration
 
 " IDE plugin
 Plug 'joshdick/onedark.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'preservim/nerdtree'
+Plug 'airblade/vim-gitgutter'
 call plug#end()                             " Vim plug end dependancies plugin declaration
 
+" -----------------------------------------------------------------------------
+" Theme comfiguration
+" -----------------------------------------------------------------------------
 syntax on                                   " Enable symtax coloration
 colorscheme onedark                         " Set onedark as vim theme
 
@@ -45,7 +62,9 @@ if (has("termguicolors"))
   set termguicolors
 endif
 
+" -----------------------------------------------------------------------------
 " Lightline configuration
+" -----------------------------------------------------------------------------
 set laststatus=2
 let g:lightline = {
       \ 'colorscheme': 'onedark',
@@ -58,3 +77,24 @@ let g:lightline = {
       \ },
       \ }
 
+" -----------------------------------------------------------------------------
+" NERDTree configuration
+" -----------------------------------------------------------------------------
+" Start NERDTree and leave the cursor in it.
+autocmd VimEnter * NERDTree
+
+" Start NERDTree and put the cursor back in the other window.
+autocmd VimEnter * NERDTree | wincmd p
+
+" Start NERDTree when Vim is started without file arguments.
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" Close the tab if NERDTree is the only window remaining in it.
+autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" Open the existing NERDTree on each new tab.
+autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
