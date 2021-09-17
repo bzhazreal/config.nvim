@@ -18,20 +18,22 @@ set smarttab                                " Enable smart-tabs
 set softtabstop=4                           " Number of spaces per Tab
 set backspace=indent,eol,start              " Backspace behaviour
 
-inoremap " ""<left>                         " Autoclosing "
-inoremap ' ''<left>                         " Autoclosing '
-inoremap ( ()<left>                         " Autoclosing (
-inoremap [ []<left>                         " Autoclosing [
-inoremap { {}<left>                         " Autoclosing {
+inoremap " ""<left>
+inoremap ' ''<left>
+inoremap ( ()<left>
+inoremap [ []<left>
+inoremap { {}<left>
 inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 
-autocmd BufWritePre * :%s/\s\+$//e         " Remove trailing spaces on file write (:w)
+autocmd BufWritePre * :%s/\s\+$//e          " Remove trailing spaces on file write (:w)
 
 call plug#begin('~/.vim/plugged')           " Vim plug start dependancies plugin declaration
+
+" IDE plugin
 Plug 'joshdick/onedark.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'itchyny/vim-gitbranch'
+Plug 'tpope/vim-fugitive'
 call plug#end()                             " Vim plug end dependancies plugin declaration
 
 syntax on                                   " Enable symtax coloration
@@ -52,6 +54,7 @@ let g:lightline = {
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'gitbranch#name'
+      \   'gitbranch': 'FugitiveHead'
       \ },
       \ }
+
