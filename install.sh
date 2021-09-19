@@ -29,7 +29,7 @@ function main()
 {
     # Install vim end dependancies.
     print_info "Start dependancies installation"
-    sudo dnf install -yq $1
+    sudo dnf install -yq vim curl git
     print_success "Dependancies has been installed with success"
 
     print_info "Start install vimrc"
