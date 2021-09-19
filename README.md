@@ -31,3 +31,20 @@ vim
 # Delete testing container :
 make clean
 ```
+
+## How to install
+```shell
+# If you use make commands
+make install
+# Else
+bash install.sh
+
+# After that
+vim ~/.vimrc
+# A lot of warning will appear, press <Enter>
+# When vim is open type :
+PlugInstall
+# After installation
+:qa!
+# Happy vim
+```

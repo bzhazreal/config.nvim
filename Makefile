@@ -15,3 +15,7 @@ vim:
 .PHONY: clean
 clean:
 	docker rmi ${IMAGE_NAME}
+
+.PHONY: install
+install:
+	bash install.sh
