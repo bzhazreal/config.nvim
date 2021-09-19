@@ -25,30 +25,22 @@ function print_info()
   printf "[${blue}${bold}%s${reset}] - %s \n" "status" "$1"
 }
 
-function install_dependancie_manager()
-{
-    curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-}
-
-###
-# Install a package
-###
-function install_package_from_repo()
-{
-    sudo dnf install -yq $1
-}
-
 function main()
 {
     # Install vim end dependancies.
     print_info "Start dependancies installation"
-    install_package_from_repo "vim curl git"
-    install_dependancie_manager
+    sudo dnf install -yq $1
     print_success "Dependancies has been installed with success"
 
     print_info "Start install vimrc"
-    mv ./src/vimrc ~/.vimrc
+    if [ -f ~/.vimrc ];then
+      print_info "A vimrc file already exist, let's backup it before installing a new one"
+      mv ~/.vimrc ~/.vimrc.bkp.$(date +”%s”)
+      cp ./src/vimrc ~/.vimrc
+    else
+      cp ./src/vimrc ~/.vimrc
+    fi
+
     if [ -f ~/.vimrc ];then
         print_success "Vimrc has been installed with success"
     fi
