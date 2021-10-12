@@ -2,7 +2,10 @@
 " Vim initialization
 " -----------------------------------------------------------------------------
 
-let vimplug_exists=expand('~/.vim/autoload/plug.vim')
+"*****************************************************************************
+"" Vim-Plug core
+"*****************************************************************************
+let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
 let curl_exists=expand('curl')
 
 if !filereadable(vimplug_exists)
@@ -44,8 +47,6 @@ set backspace=indent,eol,start              " Backspace behaviour
 " -----------------------------------------------------------------------------
 " Autoclosing characters
 " -----------------------------------------------------------------------------
-inoremap " ""<left>
-inoremap ' ''<left>
 inoremap ( ()<left>
 inoremap [ []<left>
 inoremap { {}<left>
@@ -68,6 +69,12 @@ Plug 'itchyny/lightline.vim'
 Plug 'tpope/vim-fugitive'
 Plug 'preservim/nerdtree'
 Plug 'airblade/vim-gitgutter'
+Plug 'dense-analysis/ale'
+Plug 'davidhalter/jedi-vim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-treesitter/nvim-treesitter'
+
 call plug#end()                             " Vim plug end dependancies plugin declaration
 
 " -----------------------------------------------------------------------------
@@ -98,18 +105,41 @@ let g:lightline = {
       \ }
 
 " -----------------------------------------------------------------------------
-" NERDTree configuration
+" nerdtree configuration
 " -----------------------------------------------------------------------------
-" Start NERDTree and leave the cursor in it.
-autocmd VimEnter * NERDTree
-" Start NERDTree and put the cursor back in the other window.
-autocmd VimEnter * NERDTree | wincmd p
-" Start NERDTree when Vim is started without file arguments.
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
-" Exit Vim if NERDTree is the only window remaining in the only tab.
-autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-" Close the tab if NERDTree is the only window remaining in it.
-autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
-" Open the existing NERDTree on each new tab.
-autocmd BufWinEnter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
+" start nerdtree and leave the cursor in it.
+autocmd vimenter * NERDTree
+" start nerdtree and put the cursor back in the other window.
+autocmd vimenter * NERDTree | wincmd p
+" start nerdtree when vim is started without file arguments.
+autocmd stdinreadpre * let s:std_in=1
+autocmd vimenter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
+" exit vim if nerdtree is the only window remaining in the only tab.
+autocmd bufenter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+" close the tab if nerdtree is the only window remaining in it.
+autocmd bufenter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+" open the existing nerdtree on each new tab.
+autocmd bufwinenter * if getcmdwintype() == '' | silent NERDTreeMirror | endif
+
+" -----------------------------------------------------------------------------
+" Shortcut configuration
+" -----------------------------------------------------------------------------
+
+"" Map leader
+let mapleader=','
+
+"" Tabs
+nnoremap <Tab> gt
+nnoremap <S-Tab> gT
+nnoremap <silent> <S-t> :tabnew<CR>
+nnoremap <silent> <S-d> :tabclose<CR>
+
+"" Split
+noremap <Leader>h :<C-u>split<CR>
+noremap <Leader>v :<C-u>vsplit<CR>
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>

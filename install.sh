@@ -10,39 +10,47 @@ bold="\e[1m"
 uline="\e[4m"
 reset="\e[0m"
 
+###
+# Vars
+###
+INIT_VIM_FILENAME=init.vim
+INIT_VIM_DIR_PATH=~/.config/nvim/
+INIT_VIM_FULLPATH=${INIT_VIM_DIR_PATH}${INIT_VIM_FILENAME}
+
 function print_error()
 {
-  printf "[${red}${bold}%s${reset}] - %s \n" "error" "$1"
+    printf "[${red}${bold}%s${reset}] - %s \n" "error" "$1"
 }
 
 function print_success()
 {
-  printf "[${green}${bold}%s${reset}] - %s \n" "success" "$1"
+    printf "[${green}${bold}%s${reset}] - %s \n" "success" "$1"
 }
 
 function print_info()
 {
-  printf "[${blue}${bold}%s${reset}] - %s \n" "status" "$1"
+    printf "[${blue}${bold}%s${reset}] - %s \n" "status" "$1"
 }
 
 function main()
 {
     # Install vim end dependancies.
     print_info "Start dependancies installation"
-    sudo dnf install -yq vim curl git
+    sudo dnf install -yq neovim curl git fd-find
     print_success "Dependancies has been installed with success"
 
-    print_info "Start install vimrc"
-    if [ -f ~/.vimrc ];then
-      print_info "A vimrc file already exist, let's backup it before installing a new one"
-      mv ~/.vimrc ~/.vimrc.bkp.$(date +”%s”)
-      cp ./src/vimrc ~/.vimrc
+    print_info "Start install init.vim"
+    if [ -f ${INIT_VIM_FULLPATH}  ];then
+        print_info "A init.vim file already exist, let's backup it before installing a new one"
+        mv ${INIT_VIM_FULLPATH}   ${INIT_VIM_FULLPATH}.$(date +%s)
+        cp ./src/init.vim  ${INIT_VIM_FULLPATH}
     else
-      cp ./src/vimrc ~/.vimrc
+        mkdir -p ${INIT_VIM_DIR_PATH}
+        cp ./src/init.vim  ${INIT_VIM_FULLPATH}
     fi
 
-    if [ -f ~/.vimrc ];then
-        print_success "Vimrc has been installed with success"
+    if [ -f ${INIT_VIM_FULLPATH} ];then
+        print_success "Init.vim has been installed with success"
     fi
 
 }
