@@ -32,11 +32,21 @@ function print_info()
     printf "[${blue}${bold}%s${reset}] - %s \n" "status" "$1"
 }
 
+function install_package()
+{
+    local packages = "neovim curl git fd-find"
+    if command -v dnf &> /dev/null;then
+        sudo dnf install -yq ${packages}
+    elif command -v apt &> /dev/null;then
+        sudo apt install -yq ${packages}
+    fi
+}
+
 function main()
 {
     # Install vim end dependancies.
     print_info "Start dependancies installation"
-    sudo dnf install -yq neovim curl git fd-find
+    install_package
     print_success "Dependancies has been installed with success"
 
     print_info "Start install init.vim"

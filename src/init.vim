@@ -44,6 +44,7 @@ set smarttab                                " Enable smart-tabs
 set softtabstop=4                           " Number of spaces per Tab
 set backspace=indent,eol,start              " Backspace behaviour
 
+set mouse=a                                 " Enable mouse support
 " -----------------------------------------------------------------------------
 " Autoclosing characters
 " -----------------------------------------------------------------------------
@@ -139,7 +140,12 @@ noremap <Leader>h :<C-u>split<CR>
 noremap <Leader>v :<C-u>vsplit<CR>
 
 " Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>ff <cmd>Telescope find_files<CR>
+nnoremap <leader>fg <cmd>Telescope live_grep<CR>
+nnoremap <leader>fb <cmd>Telescope buffers<CR>
+nnoremap <leader>fh <cmd>Telescope help_tags<CR>
+
+"" Split
+noremap <leader>h :<C-u>split<CR>
+noremap <leader>v :<C-u>vsplit<CR>
+
