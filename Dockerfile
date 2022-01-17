@@ -1,4 +1,4 @@
-FROM fedora:34
+FROM fedora:35
 
 ARG _GROUP=test-group
 ARG _USER=test-user
